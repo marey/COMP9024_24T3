@@ -9,7 +9,7 @@
     2.  How to explore a maze with a randomised algorithm 
         (flip a coin or roll a dice)
 
-                                             COMP9024 24T2
+                                             COMP9024
 
  *******************************************************************/
 ``` 
@@ -159,11 +159,11 @@ python3 MineSweeper.py
 
 | MineSweeper | 
 |:-------------:|
-| <img src="images/MineSweeper.png" width="80%" height="80%"> |
+| <img src="diagrams/MineSweeper.png" width="80%" height="80%"> |
 
 | Coordinate: (x, y) |  Array: (row, column) | 
 |:-------------:|:-------------:|
-| <img src="images/WorldCoordinate.png" width="80%" height="80%"> | <img src="images/RowCol.png" width="70%" height="70%"> |
+| <img src="diagrams/WorldCoordinate.png" width="80%" height="80%"> | <img src="diagrams/RowCol.png" width="70%" height="70%"> |
 
 ### Sidetracks: Cache
 
@@ -273,15 +273,15 @@ If you reach a dead end, you need to backtrack by popping markers off the stack 
 
 | Initial | 
 |:-------------:|
-| <img src="images/Maze_0000.png" width="50%" height="50%"> |
+| <img src="diagrams/Maze_0000.png" width="50%" height="50%"> |
 
 | Exploring  |
 |:-------------:|
-|  <img src="images/Maze_0001.png" width="50%" height="50%"> |
+|  <img src="diagrams/Maze_0001.png" width="50%" height="50%"> |
 
 |  Completed  |
 |:-------------:|
-| <img src="images/Maze_0002.png" width="50%" height="50%"> |
+| <img src="diagrams/Maze_0002.png" width="50%" height="50%"> |
 
 This method ensures that every possible path is explored until the exit is found or all available paths are exhausted. 
 
@@ -289,7 +289,7 @@ By leveraging the stack, the algorithm maintains a record of where it has been, 
 
 An animation in exploring a maze can be found at the following link.
 
-[Animation: Exploring a Maze in JavaScript](https://sheisc.github.io/slides/COMP9024/24T2/week10/maze.html)
+[Animation: Exploring a Maze in JavaScript](https://sheisc.github.io/slides/COMP9024/Maze/maze.html)
 
 In this tutorial, we study how to explore a maze with a non-randomised algorithm.
 
@@ -379,13 +379,36 @@ Makefile is discussed in [COMP9024/C/HowToMake](../../C/HowToMake/README.md).
 
 ## 3 The main procedure
 
-### 3.1 How to see more lines in the terminal in [CSE VLAB](https://vlabgateway.cse.unsw.edu.au/)
+### 3.1 Make view
+
+**Click on the window of 'feh' or use your mouse scroll wheel to view images**.
+
+```sh
+Maze$ make view
+```
+
+Here, **feh** is an image viewer available in [CSE VLAB](https://vlabgateway.cse.unsw.edu.au/).
+
+| Initial |
+|:-------------:|
+| <img src="images/HtmlMaze_0000.png" width="80%" height="80%"> |
+
+|Exploring|
+|:-------------:|
+| <img src="images/HtmlMaze_0064.png" width="80%" height="80%"> |
+
+|Completed|
+|:-------------:|
+| <img src="images/HtmlMaze_0152.png" width="80%" height="80%"> |
+
+
+### 3.2 How to see more lines in the terminal in [CSE VLAB](https://vlabgateway.cse.unsw.edu.au/)
 
 Open a terminal (Applications -> Terminal Emulator -> Edit -> Preferences -> Display -> Scrollback lines)
 
-<img src="images/MoreLines.png" width="50%" height="50%">
+<img src="diagrams/MoreLines.png" width="50%" height="50%">
 
-### 3.2 Build and run the program from the command line interface
+### 3.3 Build and run the program from the command line interface
 
 
 ``` sh
@@ -554,7 +577,7 @@ It is a simple finite-state machine, with the following state transition:
 
  TO_RIGHT -> TO_DOWN -> TO_LEFT -> TO_UP -> FINISHED
 ```
-<img src="images/PositionState.png" width="50%" height="50%">
+<img src="diagrams/PositionState.png" width="50%" height="50%">
 
 
 **For more details about Deterministic Finite Automata (DFA) , please see [Programming Languages and Compilers (COMP3131/COMP9102)](https://webcms3.cse.unsw.edu.au/COMP3131/24T1/).**
@@ -610,40 +633,40 @@ void ExploreMaze(void) {
             break;
         }        
         switch(pCurPos->state) {
-            case TO_RIGHT:
-                pCurPos->dirStr = rightArrowUnicodeStr;              
-                PushAdjacentPosition(pStack, pCurPos->r, pCurPos->c + 1, TO_RIGHT);
-                // When this position becomes the top element on the stack,  
-                // we need to go downward.
-                pCurPos->state = TO_DOWN;
-                break;
-            case TO_DOWN:                
-                pCurPos->dirStr = downArrowUnicodeStr;
-                PushAdjacentPosition(pStack, pCurPos->r + 1, pCurPos->c, TO_RIGHT);
-                // When this position becomes the top element on the stack,  
-                // we need to go leftward.                
-                pCurPos->state = TO_LEFT;
-                break;
-            case TO_LEFT:
-                pCurPos->dirStr = leftArrowUnicodeStr;                
-                PushAdjacentPosition(pStack, pCurPos->r, pCurPos->c - 1, TO_RIGHT);                
-                // When this position becomes the top element on the stack,  
-                // we need to go upward.                 
-                pCurPos->state = TO_UP;
-                break;
-            case TO_UP:
-                pCurPos->dirStr = upArrowUnicodeStr;
-                PushAdjacentPosition(pStack, pCurPos->r - 1, pCurPos->c, TO_RIGHT);
-                // When this position becomes the top element on the stack,  
-                // we have finished all directions.                  
-                pCurPos->state = FINISHED;
-                break;
-            case FINISHED:
-                pCurPos->dirStr = NULL;
-                StackPop(pStack);                
-                break;
-            default:
-                break;                                
+        case TO_RIGHT:
+            pCurPos->dirStr = rightArrowUnicodeStr;              
+            PushAdjacentPosition(pStack, pCurPos->r, pCurPos->c + 1, TO_RIGHT);
+            // When this position becomes the top element on the stack,  
+            // we need to go downward.
+            pCurPos->state = TO_DOWN;
+            break;
+        case TO_DOWN:                
+            pCurPos->dirStr = downArrowUnicodeStr;
+            PushAdjacentPosition(pStack, pCurPos->r + 1, pCurPos->c, TO_RIGHT);
+            // When this position becomes the top element on the stack,  
+            // we need to go leftward.                
+            pCurPos->state = TO_LEFT;
+            break;
+        case TO_LEFT:
+            pCurPos->dirStr = leftArrowUnicodeStr;                
+            PushAdjacentPosition(pStack, pCurPos->r, pCurPos->c - 1, TO_RIGHT);                
+            // When this position becomes the top element on the stack,  
+            // we need to go upward.                 
+            pCurPos->state = TO_UP;
+            break;
+        case TO_UP:
+            pCurPos->dirStr = upArrowUnicodeStr;
+            PushAdjacentPosition(pStack, pCurPos->r - 1, pCurPos->c, TO_RIGHT);
+            // When this position becomes the top element on the stack,  
+            // we have finished all directions.                  
+            pCurPos->state = FINISHED;
+            break;
+        case FINISHED:
+            pCurPos->dirStr = NULL;
+            StackPop(pStack);                
+            break;
+        default:
+            break;                                
         }
         PrintMaze(stepName);
     }
@@ -693,65 +716,65 @@ Responds to specific events, common in interactive applications.
 
 **Click the following link and view the JavaScript source code.**
 
-[Animation: Exploring a Maze in JavaScript](https://sheisc.github.io/slides/COMP9024/24T2/week10/maze.html)
+[Animation: Exploring a Maze in JavaScript](https://sheisc.github.io/slides/COMP9024/Maze/maze.html)
 
 ```JavaScript
 function processStackTopCell() {
-	if (stack.length != 0) {
-		cur = stack[stack.length - 1];
-		var i = cur.i;
-		var j = cur.j;
-		var cell = document.getElementById(cellName + (i * cols + j));
-		if (isExitPosition(i, j)) {
-			cell.innerHTML = "&#128508;"	
-			//cell.style.background = "url(flag.gif) no-repeat center center";
-			clearInterval(intervalId);
-			mybutton.disabled = false;
-			return;
-		}
-		switch (cur.state) {
-			case State.east:
-				cur.state = State.south;
-				cell.innerHTML = "&#x2192;"						
-				//cell.style.background = "url(east.gif) no-repeat center center";
-				pushPerviousCell(i, j + 1);
-				break;
-			case State.south:
-				cur.state = State.west;
-				cell.innerHTML = "&#x2193;"	
-				//cell.style.background = "url(south.gif) no-repeat center center";
-				pushPerviousCell(i + 1, j);
-				break;
-			case State.west:
-				cur.state = State.north;
-				cell.innerHTML = "&#x2190;"
-				//cell.style.background = "url(west.gif) no-repeat center center";
-				pushPerviousCell(i, j - 1);
-				break;
-			case State.north:
-				cur.state = State.finished;
-				cell.innerHTML = "&#x2191;"
-				//cell.style.background = "url(north.gif) no-repeat center center";
-				pushPerviousCell(i - 1, j);
-				break;
-			case State.finished:
-			    cell.innerHTML = " "	
-				cell.style.background = "white";
-				stack.pop();
-				break;
-		}
-	}
-	else {
-		clearInterval(intervalId);
-		mybutton.disabled = false;
-	}
+    if (stack.length != 0) {
+        cur = stack[stack.length - 1];
+        var i = cur.i;
+        var j = cur.j;
+        var cell = document.getElementById(cellName + (i * cols + j));
+        if (isExitPosition(i, j)) {
+            cell.innerHTML = "&#128508;"	
+            //cell.style.background = "url(flag.gif) no-repeat center center";
+            clearInterval(intervalId);
+            mybutton.disabled = false;
+            return;
+        }
+        switch (cur.state) {
+        case State.east:
+            cur.state = State.south;
+            cell.innerHTML = "&#x2192;"						
+            //cell.style.background = "url(east.gif) no-repeat center center";
+            pushPerviousCell(i, j + 1);
+            break;
+        case State.south:
+            cur.state = State.west;
+            cell.innerHTML = "&#x2193;"	
+            //cell.style.background = "url(south.gif) no-repeat center center";
+            pushPerviousCell(i + 1, j);
+            break;
+        case State.west:
+            cur.state = State.north;
+            cell.innerHTML = "&#x2190;"
+            //cell.style.background = "url(west.gif) no-repeat center center";
+            pushPerviousCell(i, j - 1);
+            break;
+        case State.north:
+            cur.state = State.finished;
+            cell.innerHTML = "&#x2191;"
+            //cell.style.background = "url(north.gif) no-repeat center center";
+            pushPerviousCell(i - 1, j);
+            break;
+        case State.finished:
+            cell.innerHTML = " "	
+            cell.style.background = "white";
+            stack.pop();
+            break;
+        }
+    }
+    else {
+    	clearInterval(intervalId);
+    	mybutton.disabled = false;
+    }
 }
 
 function starting() {
-	mybutton.disabled = true;
-	pushPerviousCell(1, 0, State.east);
+    mybutton.disabled = true;
+    pushPerviousCell(1, 0, State.east);
     // Event handler: the function processStackTopCell() will be called every 200 milliseconds
-	intervalId = setInterval("processStackTopCell()", 200);
+    intervalId = setInterval("processStackTopCell()", 200);
 }
 ```
 
@@ -824,28 +847,28 @@ void ExploreMazeRandomly(void) {
         }
         //
         switch(nextState) {
-            case TO_RIGHT:
-                pCurPos->dirStr = rightArrowUnicodeStr;
-                ______Q2______;
-                break;
-            case TO_DOWN:
-                pCurPos->dirStr = downArrowUnicodeStr;
-                ______Q3______;
-                break;
-            case TO_LEFT:
-                pCurPos->dirStr = leftArrowUnicodeStr;
-                ______Q4______;
-                break;
-            case TO_UP:
-                pCurPos->dirStr = upArrowUnicodeStr;
-                ______Q5______;
-                break;
-            case FINISHED:
-                pCurPos->dirStr = NULL;
-                StackPop(pStack);
-                break;
-            default:
-                break;
+        case TO_RIGHT:
+            pCurPos->dirStr = rightArrowUnicodeStr;
+            ______Q2______;
+            break;
+        case TO_DOWN:
+            pCurPos->dirStr = downArrowUnicodeStr;
+            ______Q3______;
+            break;
+        case TO_LEFT:
+            pCurPos->dirStr = leftArrowUnicodeStr;
+            ______Q4______;
+            break;
+        case TO_UP:
+            pCurPos->dirStr = upArrowUnicodeStr;
+            ______Q5______;
+            break;
+        case FINISHED:
+            pCurPos->dirStr = NULL;
+            StackPop(pStack);
+            break;
+        default:
+            break;
         }
         PrintMaze(stepName);
     }

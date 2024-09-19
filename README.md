@@ -1,7 +1,7 @@
 # COMP9024
 
 
-
+<!--
 As suggested by the [TIOBE Index](https://www.tiobe.com/tiobe-index/), Python and C stand out as the two most 
 popular programming languages.
 
@@ -12,6 +12,7 @@ from web development and software security to AI.
 On the other hand, C, renowned for its efficiency and control over hardware, remains a cornerstone in system programming (e.g., [Linux Kernel](https://github.com/torvalds/linux) and [Python Interpreter](https://github.com/python/cpython)) and embedded systems. 
 
 Interestingly, the official Python interpreter, [CPython](https://github.com/python/cpython), is written in C.
+-->
 
 COMP9024 is a 2-in-1 course.  It consists of two parts:
 
@@ -21,7 +22,20 @@ COMP9024 is a 2-in-1 course.  It consists of two parts:
 
 Together, we have **Data Structures and Algorithms in C**.
 
+But, we don’t have the luxury of learning the C programming language through traditional methods (like those used in [COMP1511](https://cgi.cse.unsw.edu.au/~cs1511/24T2/)).
+
+It means:
+
+- On one hand, you pay for one course but get the content of two (C + Data Structures and Algorithms).
+
+- On the other hand, COMP9024 has a steep learning curve.
+
+**Please work hard in Week 1 and harder after that**.
+
+To aid understanding, we have visualized most of the algorithms (e.g., [COMP9024/Trees/Ast2Dot](./Trees/Ast2Dot/README.md)) discussed in COMP9024.
+
 ## [Algorithms + Data Structures = Programs](https://en.wikipedia.org/wiki/Algorithms_%2B_Data_Structures_%3D_Programs)
+
 
 Data structures are about how data is stored inside a computer for effective and efficient use. 
 
@@ -37,63 +51,21 @@ An algorithm is a step-by-step process for solving a problem within a finite amo
 
 ## Week 01
 
-<a href="https://sheisc.github.io/slides/COMP9024/24T2/week01/slides.html" target="_blank">Introduction</a>
+<a href="https://sheisc.github.io/slides/COMP9024/24T3/week01/slides.html" target="_blank">Introduction</a>
 
-Our First Project
+
+[COMP9024/C/HelloWorld](./C/HelloWorld/README.md)
+
+[COMP9024/Sorting/BubbleSort](./Sorting/BubbleSort/README.md)
+
+
+## Week 02
 
 [COMP9024/Stacks/Recursion](./Stacks/Recursion/README.md)
 
-## Week 02 - 10
-
-[COMP9024/C/HowToMake](./C/HowToMake/README.md)
+[COMP9024/Stacks/Stack_LL](./Stacks/Stack_LL/README.md)
 
 [COMP9024/C/AccessMemory](./C/AccessMemory/README.md)
 
-[COMP9024/C/EnvVars](./C/EnvVars/README.md)
-
-[COMP9024/C/SimpleShell](./C/SimpleShell/README.md)
-
-[COMP9024/Stacks/Stack_LL](./Stacks/Stack_LL/README.md)
-
-[COMP9024/Queues/Queue_LL](./Queues/Queue_LL/README.md)
-
-[COMP9024/Trees/BiTree](./Trees/BiTree/README.md)
-
-[COMP9024/Complexity/Counting](./Complexity/Counting/README.md)
-
-[COMP9024/Graphs/Dot2Png](./Graphs/Dot2Png/README.md)
-
-[COMP9024/Graphs/DirectedGraph](./Graphs/DirectedGraph/README.md)
-
-[COMP9024/Graphs/UndirectedGraph](./Graphs/UndirectedGraph/README.md)
-
-[COMP9024/Graphs/DepthFirstSearch](./Graphs/DepthFirstSearch/README.md)
-
-[COMP9024/Graphs/Dijkstra](./Graphs/Dijkstra/README.md)
-
-[COMP9024/Graphs/CycleDetection](./Graphs/CycleDetection/README.md)
-
-[COMP9024/Graphs/BreadthFirstSearch](./Graphs/BreadthFirstSearch/README.md)
-
-[COMP9024/Trees/Tree2Dot](./Trees/Tree2Dot/README.md)
-
-[COMP9024/Trees/TreeTraversal](./Trees/TreeTraversal/README.md)
-
-[COMP9024/Trees/BinarySearchTree](./Trees/BinarySearchTree/README.md)
-
-[COMP9024/HeapAllocator](./HeapAllocator/README.md)
-
-[COMP9024/Trees/SelfBalancingBST](./Trees/SelfBalancingBST/README.md)
-
-[COMP9024/Strings/HashMap](./Strings/HashMap/README.md)
-
-[COMP9024/Strings/Trie](./Strings/Trie/README.md)
-
-[COMP9024/Strings/FormatString](./Strings/FormatString/README.md)
-
-[COMP9024/Randomised/Maze](./Randomised/Maze/README.md)
-
-[COMP9024/Randomised/TopologicalSort](./Randomised/TopologicalSort/README.md)
-
-
+[COMP9024/C/HowToMake](./C/HowToMake/README.md)
 

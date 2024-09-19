@@ -10,7 +10,7 @@
 
     3.  Breadth First Search in a tree
 
-                                             COMP9024 24T2
+                                             COMP9024
 
  *******************************************************************/
 ``` 
@@ -22,7 +22,7 @@ Unlike the recursive implementation that relies on the [call stack](../../Stacks
 
 DFS goes as deep as possible from the starting node before backtracking to explore other branches.
 
-|[Maze](https://sheisc.github.io/slides/COMP9024/24T2/week10/maze.html)|
+|[Maze](https://sheisc.github.io/slides/COMP9024/Maze/maze.html)|
 |:-------------:|
 | <img src="diagrams/Maze.png" width="100%" height="100%"> |
 

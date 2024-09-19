@@ -8,13 +8,66 @@
 
     2.  Different versions/instances of the local variable 'n' in Factorial(n)
 
-    3.  A Linux Process's memory layout (userspace)
+    3.  The Memory Layout of a Linux Process (userspace)
 
-                                                                    COMP9024 24T2
+                                                                    COMP9024
 
  ******************************************************************************************/
 
 ``` 
+
+**Non-recursive factorial function**
+
+
+```C
+#include <stdio.h>
+#include <assert.h>
+
+// !   Exclamation mark
+// F(n) = n! = 1 * 2 * 3 * ... * (n-1) * n
+long F(long n) {
+    long result = 1;
+    // assert(n >= 0);
+    for (long i = 1; i <= n; i++) {
+        result = result * i;
+        // result *= i;
+    }
+    return result;
+}
+
+int main(void) {
+    long n = 4;
+    long x = F(n);
+    printf("F(%ld) = %ld\n", n, x);
+    return 0;
+}
+```
+**Function Call and Return**
+```sh
+ High Address
+              |             | 
+              |_____________|
+              |             | 
+              | return addr |
+              |             |
+          n   |     4       |  
+          x   |             |  main()'s stack frame  
+              |             |
+              |_____________| 
+              |             |
+          n   |     4       |  
+              | return addr |  F()'s stack frame
+              |             |
+      result  |             | 
+         i    |             |
+              |             |  
+              |             | 
+              |             |
+              |_____________| 
+              |             |
+                Call Stack
+Low Address
+```
 
 ## Recursive functions
 
@@ -24,7 +77,44 @@ Recursive functions are functions that call themselves directly or indirectly wi
 
 They are a powerful tool in programming, particularly for tasks that exhibit repetitive or self-similar structures. 
 
+```sh
+
+Factorial(n) = n! = 1 * 2 * 3 * ... * (n-1) * n
+
+Base case:     
+    
+    Factorial(n) = 1,    when n is 1
+
+Recursive definition:
+
+    Factorial(n) = 1 * 2 * 3 * ... * (n-1) * n
+                 = Factorial(n-1) * n
+Motivation:
+
+    Break a large problem down into smaller, similar problems.
+```
+
+```C
+long Factorial(long n) {
+    if (n <= 1) {
+        // the base case for the recursive function
+        return 1;
+    } else {
+        // return Factorial(n-1) * n;
+        long result = Factorial(n - 1);
+        result = result * n;
+        return result;
+    }
+}
+```
 However, when using recursion, it's important to understand how it interacts with the call stack.
+
+
+|   Call Stack    |  Program      |
+| :-----: | :----------: | 
+|<img src="diagrams/FactorialCallStack.png" width="100%" height="100%">| <img src="diagrams/FactorialCode.png" width="100%" height="100%">| 
+
+
 
 
 ## Call Stack
@@ -47,7 +137,7 @@ Each time a function is called, a new stack frame (containing the return address
 is created and pushed onto the call stack. 
 
 
-## A Linux Process's memory layout (userspace)
+## The Memory Layout of a Linux Process (userspace)
 
 
 A process can be thought of as an instance of a running program. 
@@ -89,7 +179,7 @@ which are allocated to the program as it runs.
      |_____________________| 
      |                     |
 
-    A Linux Process's memory layout (userspace)
+    The Memory Layout of a Linux Process (userspace)
 
 ```
 
@@ -154,8 +244,12 @@ Data area
 
         In C:
 
-        long *pLong = (long *) malloc(sizeof(long));
-        *pLong = 2024;
+        void test(void) {
+            long *pLong = (long *) malloc(sizeof(long));
+            *pLong = 2024;
+            // ...
+            free(pLong);
+        }
 
         Memory Layout:
                        --------
@@ -186,9 +280,33 @@ Data area
 
 ```
 
+**Linux Programmer's Manual**
+```sh
+$ man malloc
 
-**Call stack** is studied in [Stacks/CallStack](../CallStack/README.md) and [Stacks/Recursion](./README.md), 
-and maintained in [lines 553-566 in LargeAssignment/src/stmt.c](../../LargeAssignment/src/stmt.c), [lines 498-581 in LargeAssignment/src/expr.c](../../LargeAssignment/src/expr.c), and [lines 142-161 and 284-288 in LargeAssignment/src/emit.c](../../LargeAssignment/src/emit.c).
+#include <stdlib.h>
+
+// "/usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h"
+// typedef long unsigned int size_t;
+
+void *malloc(size_t size);
+void free(void *ptr);
+
+DESCRIPTION
+       The malloc() function allocates size bytes and returns a pointer to the
+       allocated  memory.   The memory is not initialized.  If size is 0, then
+       malloc() returns either NULL, or a unique pointer value that can  later
+       be successfully passed to free().
+
+       The  free()  function  frees  the memory space pointed to by ptr, which
+       must have been returned by a previous call to  malloc(),  calloc(),  or
+       realloc().   Otherwise, or if free(ptr) has already been called before,
+       undefined behavior occurs.  If ptr is NULL, no operation is performed.
+
+```
+
+**Call stack** is studied in [Stacks/Recursion](./README.md), 
+[lines 553-566 in LargeAssignment/src/stmt.c](../../LargeAssignment/src/stmt.c), [lines 498-581 in LargeAssignment/src/expr.c](../../LargeAssignment/src/expr.c), and [lines 142-161 and 284-288 in LargeAssignment/src/emit.c](../../LargeAssignment/src/emit.c).
 
 **Heap allocator** is customized in  [OurMalloc() and OurFree() of our large assignment](../../LargeAssignment/libs/SccHeap.c).
 
@@ -293,8 +411,10 @@ Factorial(4) = 24
 
 
 ```
-
+<!--
 ## 4 The Call Stack Memory Layout (ignoring return addresses and other information)
+
+
 ```C
 long Factorial(long n) {
     printf("Factorial(): n = %ld, &n = %p\n", n, &n);
@@ -351,8 +471,12 @@ int main(void) {
                 Call Stack
 Low Address
 ```
+-->
 
-## 5 A similar test case in [our large assignment](../../LargeAssignment/tests/Factorial.scc)
+
+
+
+## 4 A similar test case in [our large assignment](../../LargeAssignment/tests/Factorial.scc)
 
 The following test case is not written in C, but with a simple language defined in our large assignment.
 

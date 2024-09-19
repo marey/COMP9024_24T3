@@ -62,20 +62,21 @@ void PrintInteger(STACK_ITEM_T x, int base) {
     base = (base >= 0 ? base: -base);
 
     printf("------------- x = %ld, base = %d -------------\n\n", (long) x, base);
-    
+
     // push the remainders onto the stack
-    while(x != 0) {
+    do {
         r = x % base;
         x = x / base;
         printf("push %d\n", r);
         StackPush(pStack, r);
-    }  
+    } while(x != 0);
 
     printf("\n\nAfter popping (First In Last Out):\n\n");
     PrintPrefix(base);
     // output the remainders in the FILO order
-    while(!StackIsEmpty(pStack)) {
+    while (!StackIsEmpty(pStack)) {
         r = StackPop(pStack);
+        
         // see https://www.asciitable.com/
         if (r <= 9) {
             // 1 --> '1' (0x31, 49); ...

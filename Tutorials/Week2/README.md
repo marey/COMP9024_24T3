@@ -14,10 +14,39 @@
 
     5.  Why Swap2(int a, int b) doesn't work?
 
-                                             COMP9024 24T2
+                                             COMP9024
 
  *******************************************************************/
+
 ``` 
+
+## Introduction
+
+Bubble sort gets its name because of the way smaller elements "bubble" to the beginning of the array as the algorithm progresses. 
+
+Imagine the smallest elements gradually "bubbling up" to the beginning of the array, 
+
+while the larger elements "sink" to their appropriate positions at the bottom or end of the array. 
+
+| Bubble |
+|:-------------:|
+|<img src="diagrams/bubble.jpg" width="50%" height="50%">|
+
+**We don’t have the luxury of learning the C programming language through traditional methods (like those used in [COMP1511](https://cgi.cse.unsw.edu.au/~cs1511/24T2/))**.
+
+It means:
+
+- On one hand, you pay for one course but get the content of two (C + Data Structures and Algorithms). 
+
+    The overworked teaching team handles two courses in COMP9024 but only gets paid for one.
+
+- On the other hand, COMP9024 has a steep learning curve.
+
+    **Please work hard in Week 1 and harder after that**.
+
+## Frequently asked questions about [CSE VLAB](https://taggi.cse.unsw.edu.au/FAQ/Really_quick_guide_to_VLAB/)
+
+Please refer to the project [COMP9024/C/HelloWorld](../../C/HelloWorld/README.md)
 
 ## 1 How to download Tutorials in [CSE VLAB](https://vlabgateway.cse.unsw.edu.au/)
 
@@ -73,6 +102,10 @@ Then, click **Run -> Start Debugging**
 |
 ├── README.md            introduction to this tutorial
 |
+├── images               *.png files
+|
+├── diagrams             *.dot and *.png files
+|
 ├── src                  containing *.c and *.h
 |   |
 │   └── BubbleSort.c
@@ -88,7 +121,366 @@ Then, click **Run -> Start Debugging**
 
 Makefile is discussed in [COMP9024/C/HowToMake](../../C/HowToMake/README.md).
 
+
 ## 3 The process of bubble sort
+
+### 3.1 make view
+
+**Click on the window of 'feh' or use your mouse scroll wheel to view images**.
+
+```sh
+Week2$ make view
+```
+
+Here, **feh** is an image viewer available in [CSE VLAB](https://vlabgateway.cse.unsw.edu.au/).
+
+All of these images for visualizing algorithms are generated automatically in [COMP9024/Sorting/Array2Dot](../../Sorting/Array2Dot/README.md).
+
+| Initial |
+|:-------------:|
+|<img src="images/BubbleSort_0000.png" width="80%" height="80%">|
+
+| Final (in ascending order) |
+|:-------------:|
+| <img src="images/BubbleSort_0023.png" width="80%" height="80%"> |
+
+**$\color{red}{\textsf{Pass 1}}$**
+
+where i $\in$ {0, 1, 2, 3, 4}
+
+| Operation | State |
+|:-------------|:-------------:|
+|comparison| <img src="images/BubbleSort_0001.png" width="80%" height="80%"> |
+
+```C
+    if (ptr[0] > ptr[0 + 1]) {
+        Swap(ptr + 0, ptr + 0 + 1);
+    }
+```
+
+| Operation | State  | 
+|:-------------|:-------------:|
+|comparison, swap| <img src="images/BubbleSort_0002.png" width="80%" height="80%"> |
+
+| Operation | State (after swapping)|
+|:-------------|:-------------:|
+|| <img src="images/BubbleSort_0003.png" width="80%" height="80%"> |
+
+```C
+    if (ptr[1] > ptr[1 + 1]) {
+        Swap(ptr + 1, ptr + 1 + 1);
+    }
+```
+
+| Operation | State |
+|:-------------|:-------------:|
+|comparison, swap| <img src="images/BubbleSort_0004.png" width="80%" height="80%"> |
+
+| Operation | State (after swapping) |
+|:-------------|:-------------:|
+| | <img src="images/BubbleSort_0005.png" width="80%" height="80%"> |
+
+```C
+    if (ptr[2] > ptr[2 + 1]) {
+        Swap(ptr + 2, ptr + 2 + 1);
+    }
+```
+
+| Operation | State |
+|:-------------|:-------------:|
+|comparison| <img src="images/BubbleSort_0006.png" width="80%" height="80%"> |
+
+```C
+    if (ptr[3] > ptr[3 + 1]) {
+        Swap(ptr + 3, ptr + 3 + 1);
+    }
+```
+
+| Operation | State | 
+|:-------------|:-------------:|
+|comparison, swap| <img src="images/BubbleSort_0007.png" width="80%" height="80%"> |
+
+| Operation | State (after swapping) |
+|:-------------|:-------------:|
+| | <img src="images/BubbleSort_0008.png" width="80%" height="80%"> |
+
+```C
+    if (ptr[4] > ptr[4 + 1]) {
+        Swap(ptr + 4, ptr + 4 + 1);
+    }
+```
+
+**Put the repeated operations (i.e., if statements) into a loop statement**
+```C
+for (int i = 0; i <= 4; i++) {
+    if (ptr[i] > ptr[i+1]) {
+        Swap(ptr + i, ptr + i + 1);
+    }
+}
+```
+
+**$\color{red}{\textsf{Pass 2}}$**
+
+where i $\in$ {0, 1, 2, 3}
+
+| Operation | State |
+|:-------------|:-------------:|
+|comparison, swap| <img src="images/BubbleSort_0009.png" width="80%" height="80%"> |
+
+| Operation | State (after swapping) |
+|:-------------|:-------------:|
+| | <img src="images/BubbleSort_0010.png" width="80%" height="80%"> |
+
+```C
+    if (ptr[0] > ptr[0 + 1]) {
+        Swap(ptr + 0, ptr + 0 + 1);
+    }
+```
+
+| Operation | State |
+|:-------------|:-------------:|
+|comparison, swap| <img src="images/BubbleSort_0011.png" width="80%" height="80%"> |
+
+| Operation | State (after swapping) |
+|:-------------|:-------------:|
+| | <img src="images/BubbleSort_0012.png" width="80%" height="80%"> |
+
+```C
+    if (ptr[1] > ptr[1 + 1]) {
+        Swap(ptr + 1, ptr + 1 + 1);
+    }
+```
+
+| Operation | State |
+|:-------------|:-------------:|
+|comparison| <img src="images/BubbleSort_0013.png" width="80%" height="80%"> |
+
+```C
+    if (ptr[2] > ptr[2 + 1]) {
+        Swap(ptr + 2, ptr + 2 + 1);
+    }
+```
+
+
+| Operation | State |
+|:-------------|:-------------:|
+|comparison, swap| <img src="images/BubbleSort_0014.png" width="80%" height="80%"> |
+
+| Operation | State (after swapping) |
+|:-------------|:-------------:|
+| | <img src="images/BubbleSort_0015.png" width="80%" height="80%"> |
+
+```C
+    if (ptr[3] > ptr[3 + 1]) {
+        Swap(ptr + 3, ptr + 3 + 1);
+    }
+```
+
+**Put the repeated operations (i.e., if statements) into a loop statement**
+```C
+for (int i = 0; i <= 3; i++) {
+    if (ptr[i] > ptr[i+1]) {
+        Swap(ptr + i, ptr + i + 1);
+    }
+}
+```
+
+**$\color{red}{\textsf{Pass 3}}$**
+
+where i $\in$ {0, 1, 2}
+
+| Operation | State |
+|:-------------|:-------------:|
+|comparison, swap| <img src="images/BubbleSort_0016.png" width="80%" height="80%"> |
+
+| Operation | State (after swapping) |
+|:-------------|:-------------:|
+| | <img src="images/BubbleSort_0017.png" width="80%" height="80%"> |
+
+```C
+    if (ptr[0] > ptr[0 + 1]) {
+        Swap(ptr + 0, ptr + 0 + 1);
+    }
+```
+
+| Operation | State | 
+|:-------------|:-------------:|
+|comparison| <img src="images/BubbleSort_0018.png" width="80%" height="80%"> |
+
+```C
+    if (ptr[1] > ptr[1 + 1]) {
+        Swap(ptr + 1, ptr + 1 + 1);
+    }
+```
+
+| Operation | State  |
+|:-------------|:-------------:|
+|comparison | <img src="images/BubbleSort_0019.png" width="80%" height="80%"> |
+
+```C
+    if (ptr[2] > ptr[2 + 1]) {
+        Swap(ptr + 2, ptr + 2 + 1);
+    }
+```
+
+
+**Put the repeated operations (i.e., if statements) into a loop statement**
+```C
+for (int i = 0; i <= 2; i++) {
+    if (ptr[i] > ptr[i+1]) {
+        Swap(ptr + i, ptr + i + 1);
+    }
+}
+```
+
+**$\color{red}{\textsf{Pass 4}}$**
+
+where i $\in$ {0, 1}
+
+| Operation | State  |
+|:-------------|:-------------:|
+|comparison | <img src="images/BubbleSort_0020.png" width="80%" height="80%"> |
+
+```C
+    if (ptr[0] > ptr[0 + 1]) {
+        Swap(ptr + 0, ptr + 0 + 1);
+    }
+```
+
+| Operation | State  |
+|:-------------|:-------------:|
+|comparison | <img src="images/BubbleSort_0021.png" width="80%" height="80%"> |
+
+```C
+    if (ptr[1] > ptr[1 + 1]) {
+        Swap(ptr + 1, ptr + 1 + 1);
+    }
+```
+
+**Put the repeated operations (i.e., if statements) into a loop statement**
+```C
+for (int i = 0; i <= 1; i++) {
+    if (ptr[i] > ptr[i+1]) {
+        Swap(ptr + i, ptr + i + 1);
+    }
+}
+```
+
+
+**$\color{red}{\textsf{Pass 5}}$**
+
+where i $\in$ {0}
+
+| Operation | State  |
+|:-------------|:-------------:|
+|comparison | <img src="images/BubbleSort_0022.png" width="80%" height="80%"> |
+
+```C
+    if (ptr[0] > ptr[0 + 1]) {
+        Swap(ptr + 0, ptr + 0 + 1);
+    }
+```
+
+| Final (in ascending order) |
+|:-------------:|
+| <img src="images/BubbleSort_0023.png" width="80%" height="80%"> |
+
+**Put the repeated operations (i.e., if statements) into a loop statement**
+```C
+for (int i = 0; i <= 0; i++) {
+    if (ptr[i] > ptr[i+1]) {
+        Swap(ptr + i, ptr + i + 1);
+    }
+}
+```
+
+**$\color{red}{\textsf{Summary}}$**
+
+where n is 6
+
+| Pass | i |  iMax   | Initial State |
+|:-------------|:-------------|:-------------|:-------------| 
+| Pass 1 | {0, 1, 2, 3, 4} |  $\color{red}{4}$   |<img src="images/BubbleSort_0001.png" width="80%" height="80%"> |
+```C
+    for (int i = 0; i <= 4; i++) {
+        if (ptr[i] > ptr[i+1]) {
+            Swap(ptr + i, ptr + i + 1);
+        }
+    }
+```
+
+| Pass | i |  iMax   | Initial State |
+|:-------------|:-------------|:-------------|:-------------| 
+| Pass 2 | {0, 1, 2, 3} |  $\color{red}{3}$   |<img src="images/BubbleSort_0009.png" width="70%" height="70%"> |
+```C
+    for (int i = 0; i <= 3; i++) {
+        if (ptr[i] > ptr[i+1]) {
+            Swap(ptr + i, ptr + i + 1);
+        }
+    }
+```
+
+| Pass | i |  iMax   | Initial State |
+|:-------------|:-------------|:-------------|:-------------| 
+| Pass 3 | {0, 1, 2} |  $\color{red}{2}$   |<img src="images/BubbleSort_0016.png" width="60%" height="60%"> |
+```C
+    for (int i = 0; i <= 2; i++) {
+        if (ptr[i] > ptr[i+1]) {
+            Swap(ptr + i, ptr + i + 1);
+        }
+    }
+```
+
+| Pass | i |  iMax   | Initial State |
+|:-------------|:-------------|:-------------|:-------------| 
+| Pass 4 | {0, 1} |  $\color{red}{1}$  |<img src="images/BubbleSort_0020.png" width="60%" height="60%"> |
+```C
+    for (int i = 0; i <= 1; i++) {
+        if (ptr[i] > ptr[i+1]) {
+            Swap(ptr + i, ptr + i + 1);
+        }
+    }
+```
+
+| Pass | i |  iMax   | Initial State |
+|:-------------|:-------------|:-------------|:-------------| 
+| Pass 5 | {0} |  $\color{red}{0}$  |<img src="images/BubbleSort_0022.png" width="60%" height="60%"> |
+```C
+    for (int i = 0; i <= 0; i++) {
+        if (ptr[i] > ptr[i+1]) {
+            Swap(ptr + i, ptr + i + 1);
+        }
+    }
+```
+
+
+**Put the repeated operations (i.e., $\color{red}{for}$ statements) into a loop statement**
+
+```C
+/*
+    Bubble sort the n numbers pointed to by ptr.
+    The elements are sorted in ascending order (from the least to the greatest).
+ */
+void BubbleSort(int *ptr, int n) {
+    /*
+        1. iMax represents the max value of i in a pass
+          (in the following statement "if (ptr[i] > ptr[i+1])")
+
+        2. (n-1) passes needed in Bubble Sort
+     */
+    for (int iMax = n - 2; iMax >= 0; iMax--) { // (n-1) passes
+        // i is in [0, iMax] in the current pass
+        for (int i = 0; i <= iMax; i++) {
+            if (ptr[i] > ptr[i+1]) {
+                Swap(ptr + i, ptr + i + 1);
+            }
+        }       
+    }
+}
+```
+
+
+### 3.2 make && ./main
 
 **In addition to utilizing VS Code, we can also compile and execute programs directly from the command line interface as follows.**
 
@@ -165,16 +557,46 @@ i = 20, j = 24
 ```
 
 
-## 4 Access an array via its name (e.g., arr)
+
+## 4 Data structures 
+
+**Array in C**
+
+```C
+// array in C    
+int arr[] = {30, 50, 20, 10, 60, 40};
+
+
+// Memory Layout:
+
+    High Address
+    
+            --------------- -----------
+             Access Name      Value
+            --------------- -----------
+             arr[5]            40
+             arr[4]            60            
+             arr[3]            10
+             arr[2]            20
+             arr[1]            50
+             arr[0]            30          
+            --------------- ---------
+                             int arr[]
+    Low Address
+```
+
+### 4.1 Access an array via its name (e.g., arr)
 ``` C
     int arr[] = {30, 50, 20, 10, 60, 40};
     // calculate the number of elements
     int len = sizeof(arr) / sizeof(arr[0]);
     // only &arr[0] is passed  
     PrintArray(arr, len);
+```
+    
+#### 4.1.1  arr[0] in C
 
-    4.1  arr[0] in C
-
+```C
     In C, arr[0] is the syntax used to access the first element of an array arr.
 
     Here's what it means:
@@ -186,17 +608,21 @@ i = 20, j = 24
     (3)
         array indices start from 0, 
         so arr[0] refers to the first element of the array arr.
+```
     
-    4.2  arr passed as an argument in a function call
+#### 4.1.2  arr passed as an argument in a function call
 
-       When an array arr is passed as an argument in a function call (say, PrintArray(arr, len)), 
+```C
+    When an array arr is passed as an argument in a function call (say, PrintArray(arr, len)), 
        
-       only &arr[0] is passed (i.e., the address of arr[0]), rather than the value of the whole array arr.  
+    only &arr[0] is passed (i.e., the address of arr[0]), rather than the value of the whole array arr.  
 
-       By contrast, the value of len is passed (e.g., PrintArray(arr, len)).
+    By contrast, the value of len is passed (e.g., PrintArray(arr, len)).
+```
+    
+#### 4.1.3  arr[-1] in C
 
-    4.3  arr[-1] in C
-
+```C
     Attempting to access an array element with a negative index, 
     such as arr[-1], results in undefined behavior. 
     It's considered as an "out of bounds" access, 
@@ -205,35 +631,38 @@ i = 20, j = 24
     This can lead to unpredictable program behavior, crashes, or even security vulnerabilities. 
 
     Always ensure that you're accessing array elements within the bounds of the array.    
+```
 
-    4.4 arr[i], *(arr+i)
+#### 4.1.4 arr[i] and *(arr+i)
 
-        // access array elements via arr[i] 
-        for (int i = 0; i < len; i++) {
-            printf("%d ", arr[i]);
-        }
+```C
+    // access array elements via arr[i] 
+    for (int i = 0; i < len; i++) {
+        printf("%d ", arr[i]);
+    }
 
-        // access array elements via *(arr+i)
-        // *(arr+i) is equivalent to arr[i], where arr is an array
-        for (int i = 0; i < len; i++) {
-            printf("%d ", *(arr+i));
-        }
-            
+    // access array elements via *(arr+i)
+    // *(arr+i) is equivalent to arr[i], where arr is an array
+    for (int i = 0; i < len; i++) {
+        printf("%d ", *(arr+i));
+    }
+```            
 
-    4.5  li[-1] in Python (COMP9021)
+#### 4.1.5  li[-1] in Python (COMP9021)
 
-        In Python, accessing li[-1] returns the last element of the list. 
+```C
+    In Python, accessing li[-1] returns the last element of the list. 
 
-        $ python3
+    $ python3
 
-        >>> li = [10, 20, 30]
+    >>> li = [10, 20, 30]
 
-        >>> li[-1]
-        30
+    >>> li[-1]
+    30
 ```
 
 
-## 5 Access an array via a pointer variable (e.g., ptr)
+### 4.2 Access an array via a pointer variable (e.g., ptr)
 
 ```C
     void PrintArray(int *ptr, int n) {
@@ -242,30 +671,34 @@ i = 20, j = 24
         }
         printf("\n");
     }
-
-    5.1  ptr[i]
-
+```
+   
+#### 4.2.1  ptr[i]
+```C
     ptr[i] accesses the value at the memory location i positions away 
     from the base address pointed to by ptr.
     
     It's equivalent to *(ptr + i).       
+```
+#### 4.2.2 The address of ptr[i] can be expressed as:
 
-    5.2 The address of ptr[i] can be expressed as:
-
+```C
     (1)  &ptr[i]
     (2)  (ptr + i)
+```
+#### 4.2.3 ptr + i
 
-    5.3 ptr + i
-
+```C
     In C, ptr + i is an expression used in pointer arithmetic. 
     Here, ptr is a pointer variable, and i is an integer. 
     When you add an integer to a pointer, 
     the result is a new pointer that points to a memory location i elements away from the original location, 
     where the size of each element (sizeof(*ptr) or sizeof(T)) is determined by the type of the pointer (T *).
     In this case, T is int.    
+```
 
-    5.4  *(ptr + i)
-
+#### 4.2.4  *(ptr + i)
+```C
     In C, *(ptr + i) is an expression that is used to access the value 
     stored at a memory location that is i elements away 
     from the memory location pointed to by the pointer ptr.
@@ -285,82 +718,143 @@ i = 20, j = 24
 
 ```
 
-## 6 MyCOMP9024/Tutorials/MyWeek2
 
-After fully grasping the program in Week2, you can create a directory MyCOMP9024/Tutorials/MyWeek2, 
-and write the same program from scratch by yourselves in your own way.
+## 5 Algorithms
 
-**In order to understand one's knowledge blind spots in programming, one must write code oneself.**
-
-
-## 7 Practical exercise
-
-**Our tutors will NOT answer the following questions in tutorials.**
-
-**Please complete the following code in Q1-Q5 and then answer the questions in Quiz 1 (Week 2) in [Moodle](https://moodle.telt.unsw.edu.au/my/courses.php).**
+### 5.1 Swap(int *pa, int *pb) 
 
 ```C
-#include <stdio.h>
-
 void Swap(int *pa, int *pb) {
     int tmp = *pa;
     *pa = *pb;
     *pb = tmp;
 }
+```
 
+### Before swapping
+```sh
+
+    Swap the values of the two integer variables pointed to by pa and pb, respectively.  
+
+  
+    Let's suppose *pa is 20 and *pb is 24.
+                 
+    -------             --------
+         ------------>    20
+    -------             --------
+    int *pa               int
+       
+
+    -------             --------
+         ------------>    24
+    -------             --------
+    int *pb               int
+```
+### Swapping
+```C
+    // int tmp = *pa;
+    ------
+      20
+    ------
+    int tmp
+
+    // *pa = *pb
+
+    -------             --------
+         ------------>    24
+    -------             --------
+    int *pa               int
+       
+    // *pb = tmp
+    
+    -------             --------
+         ------------>    20
+    -------             --------
+    int *pb               int
+```
+
+### 5.2 PrintArray(int *ptr, int n)
+
+**Memory Layout**
+```sh
+
+    ------          -----------------------------------------------------------
+        -------->   |  int   |  int   |  int   |  int   |    ...     |  int  |
+    ------          -----------------------------------------------------------
+    int *ptr         ptr[0]    ptr[1]                                 ptr[n-1]
+          
+                     *ptr     *(ptr+1)                               *(ptr+n-1)
+
+
+```
+**Source Code**
+``` C
+#include <stdio.h>
+/*
+    void PrintArray(int *ptr, int n);
+
+        Print the values of the n integer variables pointed to by an pointer ptr:
+
+            ptr[0],  ptr[1],    ptr[2],    ...,  ptr[n-1]
+
+        or 
+            *ptr,   *(ptr+1),  *(ptr+2),   ...,  *(ptr + n -1)
+ */
 void PrintArray(int *ptr, int n) {
     for (int i = 0; i < n; i++) {
         printf("%d ", ptr[i]);
     }
     printf("\n");
 }
+```
 
-int IsLess(int a, int b) {
-    return a < b;
-}
+### 5.3 BubbleSort(int *ptr, int n)
 
-int IsLarger(int a, int b) {
-    return a > b;
-}
+```C
+/*
+    Bubble sort the n numbers pointed to by ptr.
+    The elements are sorted in ascending order (from the least to the greatest).
+ */
+void BubbleSort(int *ptr, int n) {
+    /*
+        1. iMax represents the max value of i in a pass
+          (in the following statement "if (ptr[i] > ptr[i+1])")
 
-// Define a function pointer type, which points to a function
-typedef int (*ComparatorFuncPtr)(int, int);
-
-
-void BubbleSort(int *ptr, int n, ComparatorFuncPtr compare) {
-    for (int iMax = n - 2; iMax >= 0; iMax--) {
-        for (int i = 0; ____Q1_____; _____Q2____) {
-            if (_____Q3_____) {
-                ____Q4____;
+        2. (n-1) passes needed in Bubble Sort
+     */
+    for (int iMax = n - 2; iMax >= 0; iMax--) { // (n-1) passes
+        // i is in [0, iMax] in the current pass
+        for (int i = 0; i <= iMax; i++) {
+            if (ptr[i] > ptr[i+1]) {
+                Swap(ptr + i, ptr + i + 1);
             }
         }       
     }
 }
 
+// Only one main() function in a C program
 int main(void) {    
+    // Let the C compiler determine the number of array elements for us.
     int arr[] = {30, 50, 20, 10, 60, 40};
+    // calculate the number of elements
     int len = sizeof(arr) / sizeof(arr[0]);
     
-    // a function pointer variable which points to the function IsLarger
-    ComparatorFuncPtr fptr = &IsLarger;    
-    printf("Before sorting:\n");
-    PrintArray(arr, len);
-    BubbleSort(arr, len, fptr);
-    // in an ascending order
-    printf("After sorting:\n");
-    PrintArray(arr, len);
+    BubbleSort(arr, len);
 
-    // a function pointer variable which points to the function IsLess
-    fptr = ____Q5____;    
-    printf("\nBefore sorting:\n");
-    PrintArray(arr, len);
-    BubbleSort(arr, len, fptr);
-    // in a descending order
-    printf("After sorting:\n");
-    PrintArray(arr, len);
+    // ...
+
     return 0;
 }
 
 ```
+
+## 6 Practical exercise
+
+**In order to understand one's knowledge blind spots in programming, one must write code oneself.**
+
+**Our tutors will NOT answer the following questions in tutorials.**
+
+**Please complete the following code in Q1-Q5 ([src/BubbleSort.c](./src/BubbleSort.c)) and then answer the questions in Quiz 1 (Week 2) on [Moodle](https://moodle.telt.unsw.edu.au/my/courses.php).**
+
 
 

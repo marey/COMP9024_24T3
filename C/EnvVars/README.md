@@ -34,9 +34,9 @@
      |_____________________| 
      |                     |
 
-    A Linux Process's memory layout (userspace)
+    The Memory Layout of a Linux Process (userspace)
 
-                                                                    COMP9024 24T2
+                                                                    COMP9024
 
  ******************************************************************************************/
 

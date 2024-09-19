@@ -13,7 +13,7 @@
     4.  How to find the longest prefix match in a Trie
 
 
-                                             COMP9024 24T2
+                                             COMP9024
 
  *******************************************************************/
 ``` 
@@ -37,7 +37,7 @@ static char *words[] = { "ear", "apply", "ape", "apes", "earth",
 
 | Trie |
 |:-------------:|
-| <img src="diagrams/OurTrie.png" width="100%" height="100%"> |
+| <img src="diagrams/OurTrie.png" width="60%" height="60%"> |
 
 
 ## 1 How to download this project in [CSE VLAB](https://vlabgateway.cse.unsw.edu.au/)
@@ -186,66 +186,66 @@ Here, **feh** is an image viewer available in [CSE VLAB](https://vlabgateway.cse
 
 | Insert "ear" | 
 |:-------------:|
-| <img src="images/TrieInsert_0001.png" width="100%" height="100%"> |
+| <img src="images/TrieInsert_0001.png" width="60%" height="60%"> |
 
 | Insert "apply" |
 |:-------------:|
-| <img src="images/TrieInsert_0002.png" width="100%" height="100%"> |
+| <img src="images/TrieInsert_0002.png" width="60%" height="60%"> |
 
 | Insert "ape" |
 |:-------------:|
-| <img src="images/TrieInsert_0003.png" width="100%" height="100%">  |
+| <img src="images/TrieInsert_0003.png" width="60%" height="60%">  |
 
 | Insert "apes" |
 |:-------------:|
-| <img src="images/TrieInsert_0004.png" width="100%" height="100%"> |
+| <img src="images/TrieInsert_0004.png" width="60%" height="60%"> |
 
 | Insert "earth"|
 |:-------------:|
-| <img src="images/TrieInsert_0005.png" width="100%" height="100%"> |
+| <img src="images/TrieInsert_0005.png" width="60%" height="60%"> |
 
 | Insert "east" |
 |:-------------:|
-| <img src="images/TrieInsert_0006.png" width="100%" height="100%"> |
+| <img src="images/TrieInsert_0006.png" width="60%" height="60%"> |
 
 | Insert "app" |
 |:-------------:|
-| <img src="images/TrieInsert_0007.png" width="100%" height="100%"> |
+| <img src="images/TrieInsert_0007.png" width="60%" height="60%"> |
 
 | Insert "ace" | 
 |:-------------:|
-|  <img src="images/TrieInsert_0008.png" width="100%" height="100%"> |
+|  <img src="images/TrieInsert_0008.png" width="60%" height="60%"> |
 
 | Insert "early" | 
 |:-------------:|
-| <img src="images/TrieInsert_0009.png" width="100%" height="100%"> |
+| <img src="images/TrieInsert_0009.png" width="60%" height="60%"> |
 
 | Insert "earl" |
 |:-------------:|
-| <img src="images/TrieInsert_0010.png" width="100%" height="100%"> |
+| <img src="images/TrieInsert_0010.png" width="60%" height="60%"> |
 
 | Insert "aces" |
 |:-------------:|
-| <img src="images/TrieInsert_0011.png" width="100%" height="100%"> |
+| <img src="images/TrieInsert_0011.png" width="60%" height="60%"> |
 
 
 #### 3.2.2 IP Address Lookup Using a Trie
 
 | Insert "1"|
 |:-------------:|
-| <img src="images/TrieInsert_0012.png" width="100%" height="100%"> |
+| <img src="images/TrieInsert_0012.png" width="60%" height="60%"> |
 
 | Insert "0" |
 |:-------------:|
-| <img src="images/TrieInsert_0013.png" width="100%" height="100%"> |
+| <img src="images/TrieInsert_0013.png" width="60%" height="60%"> |
 
 | Insert "1111" |
 |:-------------:|
-| <img src="images/TrieInsert_0014.png" width="100%" height="100%"> |
+| <img src="images/TrieInsert_0014.png" width="60%" height="60%"> |
 
 | Insert "000" |
 |:-------------:|
-| <img src="images/TrieInsert_0015.png" width="100%" height="100%"> |
+| <img src="images/TrieInsert_0015.png" width="60%" height="60%"> |
 
 
 **The output of TestLongestPrefixMatch()**
@@ -573,12 +573,24 @@ int LongestPrefixMatch(Trie t, char *key, ValueType *pVal) {
 ### 5.5 Trie2Dot()
 
 ```C
+
+
+static void PrintOneNode(FILE *dotFile, Trie curNode, char ch) {
+    char *wordEndStr = "";
+    if (curNode->wordEnd) {
+        wordEndStr = "[color=red]";
+    }
+    //
+    fprintf(dotFile, "\"%p\" [label=\"%c\"] %s\n", curNode, ch, wordEndStr);   
+}
+
 /*
     digraph TrieInsert {
-    "0x587a961a42a0" -> {"0x587a961a4390"} [label="e"]
-    "0x587a961a4390" -> {"0x587a961a4480"} [label="a"]
-    "0x587a961a4480" -> {"0x587a961a4570"} [label="r"]
-    "0x587a961a4570" [color=red]
+    "0x587a961a42a0" -> {"0x587a961a4390"}
+    "0x587a961a4390" -> {"0x587a961a4480"}
+    "0x587a961a4480" -> {"0x587a961a4570"}
+    ...
+    "0x587a961a4570" [label="r"] [color=red]
     }
  */
 void Trie2Dot(Trie root, char *filePath, char *graphName) {
@@ -594,22 +606,18 @@ void Trie2Dot(Trie root, char *filePath, char *graphName) {
         struct Queue *pQueue = CreateQueue();
         if (root) {
             QueueEnqueue(pQueue, root);
+            PrintOneNode(dotFile, root, ' ');
             while (!QueueIsEmpty(pQueue)) {
                 Trie curNode = QueueDequeue(pQueue);
-                // output current node
-                if (curNode->wordEnd) {
-                    fprintf(dotFile, 
-                            "\"%p\" [color=red]\n",
-                            curNode);
-                }
                 // output the directed edge
                 for (int i = 0; i < ALPHABET_SIZE; i++) {
                     if (curNode->kids[i]) {
-                        fprintf(dotFile, "\"%p\" %s {\"%p\"} [label=\"%c\"]\n",
+                        PrintOneNode(dotFile, curNode->kids[i], FIRST_CHAR + i);
+                        // Print one edge
+                        fprintf(dotFile, "\"%p\" %s {\"%p\"}\n",
                                 curNode,
                                 edgeConnectorStr,                         
-                                curNode->kids[i],
-                                FIRST_CHAR + i);
+                                curNode->kids[i]);
                         QueueEnqueue(pQueue, curNode->kids[i]);                        
                     }
                 }                
@@ -620,6 +628,7 @@ void Trie2Dot(Trie root, char *filePath, char *graphName) {
         fclose(dotFile);
     }                
 }
+
 
 #define FILE_NAME_LEN  255
 

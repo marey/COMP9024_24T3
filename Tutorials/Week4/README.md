@@ -14,7 +14,7 @@
 
     5.  How to evaluate an arithmetic expression 
 
-                                             COMP9024 24T2
+                                             COMP9024
 
  *******************************************************************/
 ``` 
@@ -42,9 +42,82 @@ In this tutorial, we will delve into the creation of a binary tree (with a parse
 
 and its practical application in representing and evaluating an arithmetic expression (e.g., "9000 + (6 * 4)").
 
-Since variadic functions in C will be discussed in [COMP9024/Stacks/CallStack](../../Stacks/CallStack/README.md),
+Since variadic functions in C will be discussed in [COMP9024/Strings/FormatString](../../Strings/FormatString/README.md),
 
 you can skip the implementation details of the code in [COMP9024/Tutorials/Week4/src/error.c](./src/error.c) now.
+
+
+
+**Click on the window of 'feh' or use your mouse scroll wheel to view images**.
+
+```sh
+Week4$ make view
+```
+
+Here, **feh** is an image viewer available in [CSE VLAB](https://vlabgateway.cse.unsw.edu.au/).
+
+All of these images for visualizing algorithms are generated automatically in [COMP9024/Trees/Ast2Dot](../../Trees/Ast2Dot/README.md).
+
+**eval() stands for EvalExpression() in the following diagrams.**
+
+| Initial |
+|:-------------:|
+| <img src="images/BiTree_0000.png" width="80%" height="80%"> |
+
+|Function calls on call stack: eval($\color{red}{+}$)|
+|:-------------:|
+| <img src="images/BiTree_0001.png" width="80%" height="80%"> |
+
+|Function calls on call stack: eval($\color{red}{9000}$), eval(+)|
+|:-------------:|
+| <img src="images/BiTree_0002.png" width="80%" height="80%"> |
+
+|Function calls on call stack: eval($\color{red}{+}$)|
+|:-------------:|
+| <img src="images/BiTree_0003.png" width="80%" height="80%"> |
+
+|Function calls on call stack: eval($\color{red}{*}$), eval(+)|
+|:-------------:|
+| <img src="images/BiTree_0004.png" width="80%" height="80%"> |
+
+|Function calls on call stack: eval($\color{red}{6}$), eval(*), eval(+)|
+|:-------------:|
+| <img src="images/BiTree_0005.png" width="80%" height="80%"> |
+
+|Function calls on call stack: eval($\color{red}{*}$), eval(+)|
+|:-------------:|
+| <img src="images/BiTree_0006.png" width="80%" height="80%"> |
+
+|Function calls on call stack: eval($\color{red}{4}$), eval(*), eval(+)|
+|:-------------:|
+| <img src="images/BiTree_0007.png" width="80%" height="80%"> |
+
+|Function calls on call stack: eval($\color{red}{*}$), eval(+)|
+|:-------------:|
+| <img src="images/BiTree_0008.png" width="80%" height="80%"> |
+
+|Function calls on call stack: eval($\color{red}{*}$), eval(+)|
+|:-------------:|
+| <img src="images/BiTree_0009.png" width="80%" height="80%"> |
+
+|Function calls on call stack: eval($\color{red}{+}$)|
+|:-------------:|
+| <img src="images/BiTree_0010.png" width="80%" height="80%"> |
+
+|Function calls on call stack: eval($\color{red}{+}$)|
+|:-------------:|
+| <img src="images/BiTree_0011.png" width="80%" height="80%"> |
+
+**The above diagrams are used to explain the recursive algorithm.**
+
+**Note that we don't actually change the binary tree itself in the post-order traversal.**
+
+| Final  |
+|:-------------:|
+| <img src="images/BiTree_0000.png" width="80%" height="80%"> |
+
+
+
 
 ## 1 How to download Tutorials in [CSE VLAB](https://vlabgateway.cse.unsw.edu.au/)
 
@@ -271,32 +344,32 @@ long EvalExpression(AstExprNodePtr root) {
         // Postorder traversal
         long result = 0;
         switch (root->op) {
-            case TK_ADD:                
-                result = leftOperand + rightOperand;
-                EmitIR("%s = %s + %s\n", root->value.name, 
-                                         root->kids[0]->value.name, 
-                                         root->kids[1]->value.name);
-                break;
-            case TK_SUB:
-                result = leftOperand - rightOperand;
-                EmitIR("%s = %s - %s\n", root->value.name, 
-                                         root->kids[0]->value.name, 
-                                         root->kids[1]->value.name);              
-                break;
-            case TK_MUL:
-                result = leftOperand * rightOperand;
-                EmitIR("%s = %s * %s\n", root->value.name, 
-                                         root->kids[0]->value.name, 
-                                         root->kids[1]->value.name);             
-                break;
-            case TK_DIV:
-                result = leftOperand / rightOperand;
-                EmitIR("%s = %s / %s\n", root->value.name, 
-                                         root->kids[0]->value.name, 
-                                         root->kids[1]->value.name);               
-                break;
-            default:
-                break;              
+        case TK_ADD:                
+            result = leftOperand + rightOperand;
+            EmitIR("%s = %s + %s\n", root->value.name, 
+                                     root->kids[0]->value.name, 
+                                     root->kids[1]->value.name);
+            break;
+        case TK_SUB:
+            result = leftOperand - rightOperand;
+            EmitIR("%s = %s - %s\n", root->value.name, 
+                                     root->kids[0]->value.name, 
+                                     root->kids[1]->value.name);              
+            break;
+        case TK_MUL:
+            result = leftOperand * rightOperand;
+            EmitIR("%s = %s * %s\n", root->value.name, 
+                                     root->kids[0]->value.name, 
+                                     root->kids[1]->value.name);             
+            break;
+        case TK_DIV:
+            result = leftOperand / rightOperand;
+            EmitIR("%s = %s / %s\n", root->value.name, 
+                                     root->kids[0]->value.name, 
+                                     root->kids[1]->value.name);               
+            break;
+        default:
+            break;              
         }
         return result;
     } else {
@@ -457,11 +530,14 @@ The code is in src/lex.c.
 
 **Our tutors will NOT answer the following questions in tutorials.**
 
-**1. Debug this program in VS Code and follow the recursive functions in expr.c step by step during parsing "9000 + (6 * 4)".**
+**(1) Debug this program in VS Code and follow the recursive functions in expr.c step by step during parsing "9000 + (6 * 4)".**
 
+     You can set a breaking point inside the function Expression() during dedugging this program.
 
-**2. Complete Q1-Q10 in the parse tree with function names you discovered during debugging and then answer the questions in Quiz 3 (Week 4) in [Moodle](https://moodle.telt.unsw.edu.au/my/courses.php).**
+**(2) The parse tree is introduced to help us further understand the code of the syntax parser in [src/expr.c](./src/expr.c).**
 
-<img src="ParseTree.png" width="60%" height="60%">
+**(3) Complete Q1-Q10 in the parse tree with function names you discovered during debugging and then answer the questions in Quiz 3 (Week 4) on [Moodle](https://moodle.telt.unsw.edu.au/my/courses.php).**
+
+<img src="ParseTree.png" width="100%" height="100%">
 
 

@@ -5,9 +5,9 @@
 
     2.  Different versions/instances of the local variable 'n' in Factorial(n)
 
-    3.  A Linux Process's memory layout (userspace)
+    3.  The Memory Layout of a Linux Process (userspace)
 
-                                                                    COMP9024 24T2
+                                                                    COMP9024
 
  ******************************************************************************************/
 

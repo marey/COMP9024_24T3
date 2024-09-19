@@ -1,6 +1,0 @@
-digraph TrieInsert {
-"0x556c71c132a0" -> {"0x556c71c13510"} [label="e"]
-"0x556c71c13510" -> {"0x556c71c13780"} [label="a"]
-"0x556c71c13780" -> {"0x556c71c139f0"} [label="r"]
-"0x556c71c139f0" [color=red]
-}

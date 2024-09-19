@@ -10,7 +10,7 @@
 
 
 
-                                             COMP9024 24T2
+                                             COMP9024
 
  *******************************************************************/
 ``` 
@@ -181,16 +181,27 @@ Here, **feh** is an image viewer available in [CSE VLAB](https://vlabgateway.cse
 
 
 
-| Visiting 0 | Visiting 2 |  Visiting 1 | Visiting 5 |
-|:-------------:|:-------------:|:-------------:|:-------------:|
-| Nodes on call stack: $\color{red}{0}$ | Nodes on call stack: $\color{red}{2}$, 0 | Nodes on call stack: $\color{red}{1}$, 2, 0 | Nodes on call stack: $\color{red}{5}$, 1, 2, 0 |
-| <img src="images/HasCycleDirected_0001.png" width="50%" height="50%"> |  <img src="images/HasCycleDirected_0002.png" width="50%" height="50%"> | <img src="images/HasCycleDirected_0003.png" width="50%" height="50%"> | <img src="images/HasCycleDirected_0004.png" width="50%" height="50%"> | 
+| Visiting 0 | Visiting 2 |
+|:-------------:|:-------------:|
+| Nodes on call stack: $\color{red}{0}$ | Nodes on call stack: $\color{red}{2}$, 0 |
+| <img src="images/HasCycleDirected_0001.png" width="50%" height="50%"> |  <img src="images/HasCycleDirected_0002.png" width="50%" height="50%"> |
 
 
-| Visiting 4 (Cycle Detected) | Visiting 7 |  Visiting 6 (Cycle Detected)| Visiting 3 |
-|:-------------:|:-------------:|:-------------:|:-------------:|
-| Nodes on call stack: $\color{red}{4}$, 2, 0 | Nodes on call stack: $\color{red}{7}$, 4, 2, 0 | Nodes on call stack: $\color{red}{6}$, 7, 4, 2, 0 | Nodes on call stack: $\color{red}{3}$ |
-| <img src="images/HasCycleDirected_0005.png" width="50%" height="50%"> |  <img src="images/HasCycleDirected_0006.png" width="50%" height="50%"> | <img src="images/HasCycleDirected_0007.png" width="50%" height="50%"> | <img src="images/HasCycleDirected_0008.png" width="50%" height="50%"> | 
+|  Visiting 1 | Visiting 5 |
+|:-------------:|:-------------:|
+| Nodes on call stack: $\color{red}{1}$, 2, 0 | Nodes on call stack: $\color{red}{5}$, 1, 2, 0 |
+| <img src="images/HasCycleDirected_0003.png" width="50%" height="50%"> | <img src="images/HasCycleDirected_0004.png" width="50%" height="50%"> |
+
+
+| Visiting 4 (Cycle Detected) | Visiting 7 |
+|:-------------:|:-------------:|
+| Nodes on call stack: $\color{red}{4}$, 2, 0 | Nodes on call stack: $\color{red}{7}$, 4, 2, 0 |
+| <img src="images/HasCycleDirected_0005.png" width="50%" height="50%"> |  <img src="images/HasCycleDirected_0006.png" width="50%" height="50%"> |
+
+|  Visiting 6 (Cycle Detected)| Visiting 3 |
+|:-------------:|:-------------:|
+| Nodes on call stack: $\color{red}{6}$, 7, 4, 2, 0 | Nodes on call stack: $\color{red}{3}$ |
+| <img src="images/HasCycleDirected_0007.png" width="50%" height="50%"> | <img src="images/HasCycleDirected_0008.png" width="50%" height="50%"> |
 
 | Call Tree and Directed Graph | 
 |:-------------:|
@@ -292,16 +303,27 @@ Here, **feh** is an image viewer available in [CSE VLAB](https://vlabgateway.cse
 
 
 
-| Visiting 0 | Visiting 2 |  Visiting 1 | Visiting 5 (Cycle Detected) |
-|:-------------:|:-------------:|:-------------:|:-------------:|
-| Nodes on call stack: $\color{red}{0}$ | Nodes on call stack: $\color{red}{2}$, 0 | Nodes on call stack: $\color{red}{1}$, 2, 0 | Nodes on call stack: $\color{red}{5}$, 1, 2, 0 |
-| <img src="images/HasCycleUndirected_0001.png" width="50%" height="50%"> |  <img src="images/HasCycleUndirected_0002.png" width="50%" height="50%"> | <img src="images/HasCycleUndirected_0003.png" width="50%" height="50%"> | <img src="images/HasCycleUndirected_0004.png" width="50%" height="50%"> | 
+| Visiting 0 | Visiting 2 |
+|:-------------:|:-------------:|
+| Nodes on call stack: $\color{red}{0}$ | Nodes on call stack: $\color{red}{2}$, 0 |
+| <img src="images/HasCycleUndirected_0001.png" width="50%" height="50%"> |  <img src="images/HasCycleUndirected_0002.png" width="50%" height="50%"> |
+
+|  Visiting 1 | Visiting 5 (Cycle Detected) |
+|:-------------:|:-------------:|
+| Nodes on call stack: $\color{red}{1}$, 2, 0 | Nodes on call stack: $\color{red}{5}$, 1, 2, 0 |
+| <img src="images/HasCycleUndirected_0003.png" width="50%" height="50%"> | <img src="images/HasCycleUndirected_0004.png" width="50%" height="50%"> |
 
 
-| Visiting 4 (Cycle Detected) | Visiting 7 |  Visiting 6 (Cycle Detected) | Visiting 3 |
-|:-------------:|:-------------:|:-------------:|:-------------:|
-| Nodes on call stack: $\color{red}{4}$, 2, 0 | Nodes on call stack: $\color{red}{7}$, 4, 2, 0 | Nodes on call stack: $\color{red}{6}$, 7, 4, 2, 0 | Nodes on call stack: $\color{red}{3}$, 0|
-| <img src="images/HasCycleUndirected_0005.png" width="50%" height="50%"> |  <img src="images/HasCycleUndirected_0006.png" width="50%" height="50%"> | <img src="images/HasCycleUndirected_0007.png" width="50%" height="50%"> | <img src="images/HasCycleUndirected_0008.png" width="50%" height="50%"> | 
+| Visiting 4 (Cycle Detected) | Visiting 7 |
+|:-------------:|:-------------:|
+| Nodes on call stack: $\color{red}{4}$, 2, 0 | Nodes on call stack: $\color{red}{7}$, 4, 2, 0 |
+| <img src="images/HasCycleUndirected_0005.png" width="50%" height="50%"> |  <img src="images/HasCycleUndirected_0006.png" width="50%" height="50%"> |
+
+
+|  Visiting 6 (Cycle Detected) | Visiting 3 |
+|:-------------:|:-------------:|
+| Nodes on call stack: $\color{red}{6}$, 7, 4, 2, 0 | Nodes on call stack: $\color{red}{3}$, 0|
+| <img src="images/HasCycleUndirected_0007.png" width="50%" height="50%"> | <img src="images/HasCycleUndirected_0008.png" width="50%" height="50%"> |
 
 | Call Tree and Undirected Graph | 
 |:-------------:|
@@ -426,7 +448,8 @@ The graph is cyclic.
 ```C
 // Storing information of a graph node
 struct GraphNode {
-    char name[MAX_ID_LEN + 1]; 
+    char name[MAX_ID_LEN + 1];
+    int onstack;
 };
 
 typedef long AdjMatrixElementTy;
@@ -701,6 +724,7 @@ static void PrintNodesInCycle(struct Graph *pGraph, long v, struct Stack *pNodes
 
 static int DetectCycle(struct Graph *pGraph, long u, int *visited, struct Stack *pNodesOnStack) {
     visited[u] = 1;
+    pGraph->pNodes[u].onstack = 1;
     // Push u onto the data stack
     StackPush(pNodesOnStack, u);    
     
@@ -753,6 +777,7 @@ static int DetectCycle(struct Graph *pGraph, long u, int *visited, struct Stack 
         }
     }
     StackPop(pNodesOnStack);
+    pGraph->pNodes[u].onstack = 0;
     return cycleDetected;
 }
 
@@ -763,6 +788,7 @@ int HasCycle(struct Graph *pGraph) {
     //memset(visited, 0, sizeof(int) * pGraph->n);
     for (long v = 0; v < pGraph->n; v++) {
         visited[v] = 0;
+        pGraph->pNodes[v].onstack = 0;
     }
 
     imgCnt = 0;

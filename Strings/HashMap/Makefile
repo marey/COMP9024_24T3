@@ -15,7 +15,7 @@
 # You can reuse this Makefile in different assignments/projects in COMP9024.
 # To be simple, please put your *.c and *.h in the src directory.
 #
-#                                                                 COMP9024 24T2
+#                                                                 COMP9024
 ####################################################################################
 PROJ_ROOT_PATH = $(shell pwd)
 
@@ -54,7 +54,7 @@ $(BUILD_DIR)/%.o: src/%.c $(H_SRC_FILES)
 	${CC} ${CFLAGS} -c $< -o $@
 
 view:
-	find ./images -name "*.png" | sort | xargs feh -F &
+	find ./images -name "*.png" | sort | xargs feh -g 1280x720 &
 	
 #tree:
 #	python3 FractalTree.py &	
@@ -67,3 +67,6 @@ clean:
 	find . -name "*.i" | xargs rm -f
 	find . -name "*.d" | xargs rm -f
 	find . -name "*.bc" | xargs rm -f
+	find ./images -name "*.dot" | xargs rm -f
+
+

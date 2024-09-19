@@ -15,7 +15,7 @@
 # You can reuse this Makefile in different assignments/projects in COMP9024.
 # To be simple, please put your *.c and *.h in the src directory.
 #
-#                                                                 COMP9024 24T2
+#                                                                 COMP9024
 ####################################################################################
 PROJ_ROOT_PATH = $(shell pwd)
 
@@ -34,7 +34,7 @@ CC= gcc
 #CFLAGS = -m32 -g -no-pie --save-temps -I $(PROJ_ROOT_PATH)/src
 #CFLAGS = -g --save-temps -I $(PROJ_ROOT_PATH)/src
 #CFLAGS = -no-pie --save-temps -fno-asynchronous-unwind-tables -I $(PROJ_ROOT_PATH)/src 
-CFLAGS = -g -I $(PROJ_ROOT_PATH)/src 
+CFLAGS = -g -Wall -I $(PROJ_ROOT_PATH)/src
 
 # create a directory  
 $(shell mkdir -p $(BUILD_DIR))
@@ -54,6 +54,9 @@ $(BUILD_DIR)/%.o: src/%.c $(H_SRC_FILES)
 	@mkdir -p $(shell dirname $@)
 	${CC} ${CFLAGS} -c $< -o $@
 
+view:
+	find ./images -name "*.png" | sort | xargs feh -g 1024x768  &
+
 # clean all the files generated	
 clean:
 	rm -rf $(TARGET_EXE) $(BUILD_DIR) 
@@ -62,3 +65,6 @@ clean:
 	find . -name "*.i" | xargs rm -f
 	find . -name "*.d" | xargs rm -f
 	find . -name "*.bc" | xargs rm -f
+	find ./images -name "*.dot" | xargs rm -f
+
+	
