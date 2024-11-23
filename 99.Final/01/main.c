@@ -57,6 +57,36 @@ struct BiTreeNode *CreateBiTree(int *preOrder, int *inOrder, int n) {
     }
 }
 
+struct BiTreeNode *CreateBiTree(int *postOrder, int *inOrder, int n) {
+    if(n <= 0) {
+        return NULL;
+    } else {
+        // 创建当前树的根节点。在前序遍历中，第一个元素是根节点,因此第一个位置应该是preOrder[0]
+        struct BiTreeNode *pNode = CreateOneNode(postOrder[n - 1], NULL, NULL);
+        if (n>1){
+            for (int i =0; i< n; i++){
+                // 循环的目的是在中序遍历中找到根节点的位置（preOrder[0]），
+                // 因为中序遍历中，根节点左边的元素属于左子树，右边的元素属于右子树。
+                if (inOrder[i] == postOrder[n - 1]) {
+                // if ((inOrder + i) == preOrder) { （错误的）
+                // if (*(inOrder + i) == *preOrder) {（这是正确的）
+                    // 1. 左子树的前序遍历数组的起始位置是在根节点之后的第一个位置, 因此应该是 preOrder + 1
+                    // 2. 左子树的中序遍历数组的起始位置和原中序遍历的起始位置相同 inOrder的位置不变, 因此应该是 inOrder。
+                    // 3. 左子树的节点数为 i，因为中序遍历中前 i 个元素属于左子树, 因此应该是 i
+                    pNode->left = CreateBiTree(postOrder, inOrder, i);
+                    // pNode->left = CreateBiTree(&preOrder[1], inOrder, i);
+                    // 1. 右子树的前序遍历数组的起始位置在左子树节点数 i 之后, 所以应该是 preOrder + i + 1。
+                    // 2. 右子树的中序遍历数组的起始位置在根节点之后，因此应该是 inOrder + i + 1
+                    // 3. 右子树的节点数为 n - i - 1，因为总节点数是 n，左子树节点数是 i，再去掉根节点。
+                    pNode->right = CreateBiTree(postOrder + i, inOrder + i + 1, n - i - 1);
+                    break;
+                }
+            }
+        }
+        return pNode;
+    }
+}
+
 struct BiTreeNode *CreateBiTree(int *preOrder, int *inOrder, int n) {
     if(n <= 0) {
         return NULL;

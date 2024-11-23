@@ -5,53 +5,6 @@
 #include "Stack.h"
 #include "Graph.h"
 
-
-// Max length of an identifier (e.g., a graph node's name) 
-#define MAX_ID_LEN 127
-
-
-// Storing information of a graph node
-struct GraphNode {
-    char name[MAX_ID_LEN + 1];
-    int onstack;
-};
-
-struct Graph{
-    /*
-       Memory Layout:
-                          -----------------------------------------------------------
-        pAdjMatrix ---->  Element(0, 0),   Element(0, 1),    ...,       Element(0, n-1),     // each row has n elements
-                          Element(1, 0),   Element(1, 1),    ...,       Element(1, n-1),
-      
-                          .....                            Element(u, v)     ...             // (n * u + v) elements away from Element(0, 0)
-      
-                          Element(n-1, 0), Element(n-1, 1),  ...,       Element(n-1, n-1)
-                          ----------------------------------------------------------- 
-                                      Adjacency Matrix on Heap
-
-     */
-    AdjMatrixElementTy *pAdjMatrix;
-    /*
-       Memory Layout
-                        ---------------------------
-                        pNodes[n-1]
-       
-       
-                        pNodes[1]
-       pNodes ----->    pNodes[0]
-                       ----------------------------
-                        struct GraphNode[n] on Heap
-     */
-    struct GraphNode *pNodes;
-    // number of nodes
-    long n;
-    // whether it is a directed graph
-    int isDirected;
-};
-
-// 0 <= u < n,  0 <= v < n
-// ELement(u, v) is (n * u + v) elements away from Element(0, 0)
-#define  MatrixElement(pGraph, u, v)  (pGraph)->pAdjMatrix[(pGraph)->n * (u) + (v)]
 /*
     Create a graph which can contain n nodes
  */
@@ -346,51 +299,27 @@ static int DetectCycle(struct Graph *pGraph, long u, int *visited, struct Stack 
     pGraph->pNodes[u].onstack = 1;
     // Push u onto the data stack
     StackPush(pNodesOnStack, u);    
-    
-    
-    imgCnt++;
-    if (pGraph->isDirected) {
-        GenOneImage(pGraph, "HasCycleDirected", "images/HasCycleDirected", imgCnt, visited);
-    } else {
-        GenOneImage(pGraph, "HasCycleUndirected", "images/HasCycleUndirected", imgCnt, visited);
-    }
     int cycleDetected = 0;
-
     // recursively visit the adjacent nodes of u, if they have not been visited yet
     for(long v = 0; v < pGraph->n; v++) {
         if (MatrixElement(pGraph, u, v)) {
             if (!visited[v]) {
                 if (DetectCycle(pGraph, v, visited, pNodesOnStack)) {
-                    cycleDetected = 1;
-#ifdef STOP_DETECTION_AT_FIRST_CYCLE                    
-                    break;
-#endif                    
+                    cycleDetected = 1;                 
+                    break;                 
                 }
             } else {
                 if (pGraph->pNodes[v].onstack) {
                     int nodesInCycle = GetNumOfNodesInCycle(pGraph, v, pNodesOnStack);
                     if (nodesInCycle > 0) {
                         if (!pGraph->isDirected) {
-                            /*
-                                In an undirected graph,
-
-                                an edge 'n0 -- n2' is represented as two directed edges:
-
-                                    n0 -> n2
-                                    n2 -> n0
-
-                                We should not treat n2 -> n0 and n0 -> n2 as a cycle in an undirected edge.
-                                So we need to check it here.
-                            */
                             if (nodesInCycle == 2) {
                                 continue;
                             }
                         }
                         PrintNodesInCycle(pGraph, v, pNodesOnStack);
                         cycleDetected = 1;
-    #ifdef  STOP_DETECTION_AT_FIRST_CYCLE
                         break;
-    #endif
                     }
                 }
             }
@@ -410,22 +339,11 @@ int HasCycle(struct Graph *pGraph) {
         visited[v] = 0;
         pGraph->pNodes[v].onstack = 0;
     }
-
-    imgCnt = 0;
-    cycles = 0;
-    if (pGraph->isDirected) {
-        GenOneImage(pGraph, "HasCycleDirected", "images/HasCycleDirected", imgCnt, visited);
-    } else {
-        GenOneImage(pGraph, "HasCycleUndirected", "images/HasCycleUndirected", imgCnt, visited);
-    }
-    
     for (long u = 0; u < pGraph->n; u++) {
         if (!visited[u]) {
             if (DetectCycle(pGraph, u, visited, pNodesOnStack)) {
-                cyclic = 1;
-#ifdef STOP_DETECTION_AT_FIRST_CYCLE                    
+                cyclic = 1;               
                 break;
-#endif
             }
         }
     }
